@@ -3,6 +3,7 @@
 # logging设置
 import logging
 import logging.handlers
+
 logger = logging.getLogger(__name__)
 handleStr = logging.StreamHandler()
 handleFile = logging.FileHandler(filename=r"../../log/logFile.log")
@@ -18,7 +19,7 @@ handleStr.setFormatter(formatter)
 logger.addHandler(handleFile)
 logger.addHandler(handleStr)
 
-
+# 携程来做这些事情来测试
 import asyncio, os, json, time
 
 from datetime import datetime
@@ -38,6 +39,7 @@ def init(loop):
 
 if __name__ == "__main__":
     logger.info("app is start !")
+    
     loop = asyncio.get_event_loop()
     loop.run_until_complete(init(loop))
     loop.run_forever()
