@@ -1,1 +1,8 @@
 2019-11-12 10:56:27,644 __main__ WARNING test 123
+2019-11-15 16:20:11,247 __main__ INFO logger mudel is import ok !
+2019-11-15 16:20:16,949 __main__ INFO logger mudel is import ok !
+2019-11-15 16:28:14,176 __main__ INFO logger mudel is import ok !
+2019-11-15 16:28:14,177 __main__ WARNING logger mudel is import ok !
+2019-11-15 16:28:14,178 __main__ ERROR logger mudel is import ok !
+2019-11-15 16:30:39,651 mylog INFO app is start !
+2019-11-15 16:30:39,655 mylog INFO server started at http://127.0.0.1:9000....

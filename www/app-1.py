@@ -6,7 +6,7 @@ import logging.handlers
 
 logger = logging.getLogger(__name__)
 handleStr = logging.StreamHandler()
-handleFile = logging.FileHandler(filename=r"../../log/logFile.log")
+handleFile = logging.FileHandler(filename=r"../log/logFile.log")
 
 logger.setLevel(logging.DEBUG)
 handleStr.setLevel(logging.DEBUG)
@@ -28,11 +28,11 @@ from aiohttp import web
 def index(request):
     return web.Response(body=b"<html><head></head><body><h1>Awesome Hello World! </h1></body></html>")
 
-@asyncio.coroutine
-def init(loop):
+
+async def init(loop):
     app = web.Application(loop=loop)
     app.router.add_route('GET', '/', index)
-    srv = yield from loop.create_server(app.make_handler(), "127.0.0.1", 9000)
+    srv = await loop.create_server(app.make_handler(), "127.0.0.1", 9000)
     logger.info("server started at http://127.0.0.1:9000....")
     return srv
 
@@ -43,4 +43,3 @@ if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     loop.run_until_complete(init(loop))
     loop.run_forever()
-
