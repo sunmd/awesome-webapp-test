@@ -49,9 +49,18 @@ class Hider(threading.Thread):
     def run(self):
         time.sleep(1)
         self.cond.acquire()
-        self.cond.release()
         
-class seeker(threading.Thread):
+        print(self.name + ": 我蒙上眼睛了")
+        self.cond.notify()
+        self.cond.wait()
+        
+        print(self.name + ": 我找到你了! ^_^")
+        self.cond.notify()
+        
+        self.cond.release()
+        print(self.name + ": 我赢了!")
+        
+class Seeker(threading.Thread):
     def __init__(self, name, cond):
         super().__init__()
         self.name = name
@@ -59,5 +68,17 @@ class seeker(threading.Thread):
         
     def run(self):
         self.cond.acquire()
-        self.cond.release()
+        self.cond.wait()
+        print(self.name + ": 我已经藏好了, 快来找我吧")
+        self.cond.notify()
+        self.cond.wait()
         
+        self.cond.release()
+        print(self.name + ": 被你找到了! 唉~~~")
+
+cond = threading.Condition()
+hider = Hider("hider", cond)
+seeker = Seeker("seeker", cond)
+
+hider.start()
+seeker.start()
