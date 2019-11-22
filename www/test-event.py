@@ -82,3 +82,75 @@ seeker = Seeker("seeker", cond)
 
 hider.start()
 seeker.start()
+
+
+from queue import Queue
+
+class student(threading.Thread):
+    def __init__(self, name, queue):
+        super().__init__()
+        self.name = name
+        self.queue = queue
+    def run(self):
+        while True:
+            msg = self.queue.get()
+            if msg == self.name:
+                print("{}: 到!".format(self.name))
+                break
+
+class Teacher(threading.Thread):
+    def __init__(self, queue):
+        super().__init__()
+        self.queue = queue
+        
+    def call(self, student_name):
+        print("老师: {}来了没有?".format(student_name))
+        self.queue.put(student_name)
+        
+call_queue = Queue()
+
+teacher = Teacher(call_queue)
+xiaoming = student("xiaoming", call_queue)
+xiaoliang = student("xiaoliang", call_queue)
+
+xiaoming.start()
+xiaoliang.start()
+
+teacher.call("xiaoming")
+time.sleep(1)
+teacher.call("xiaoliang")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
