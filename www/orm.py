@@ -100,6 +100,17 @@ class FloatField(Field):
 class TextField(Field):
     def __init__(self, name=None, default=None):
         super.__init__(self, name, 'text', False, default)
+
+# 定时类
+
+class ModelMetaclass(type):
+    def __new__(cls, name, bases, attrs):
+        mylog.infoLog("name is %s" %name)
+        if name == "Model":
+            return type.__new__(cls, name, bases, attrs)
+
+        tableName = attrs.get(__table__, None) or name
+        mylog.infoLog("found model: %s (table : %s)" %(name, tableName))
         
 
 if __name__ == "__main__" :
